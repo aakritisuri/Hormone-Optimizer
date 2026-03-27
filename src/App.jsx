@@ -6,7 +6,7 @@ const HORMONES = [
   { id: "tsh", name: "TSH", unit: "mIU/L", low: 0.4, high: 4.0, optimal: [1.0, 2.5], cat: "thyroid", color: "#4A9FE8", desc: "Anterior pituitary signal to the thyroid. When elevated, the brain is asking for more thyroid output.", moa: "Binds TSH-R on follicular cells, activates adenylyl cyclase, increases iodide uptake and T4/T3 secretion." },
   { id: "freeT3", name: "Free T3", unit: "pg/mL", low: 2.3, high: 4.2, optimal: [3.0, 3.8], cat: "thyroid", color: "#3D8BD4", desc: "Active thyroid hormone. Sets metabolic rate, thermogenesis, heart rate, and neuronal myelination.", moa: "Binds nuclear TR-alpha/beta, modulates gene transcription for metabolic enzymes and mitochondrial biogenesis." },
   { id: "freeT4", name: "Free T4", unit: "ng/dL", low: 0.8, high: 1.8, optimal: [1.1, 1.5], cat: "thyroid", color: "#3178C0", desc: "Thyroid prohormone reservoir. 80% of circulating thyroid hormone. Converted to T3 by deiodinase enzymes.", moa: "Converted by Type 1/2 deiodinase (liver, brain) to T3 or by Type 3 to reverse T3 (inactivation, stress-upregulated)." },
-  { id: "testosterone", name: "Testosterone", unit: "ng/dL", low: 300, high: 1000, optimal: [500, 800], cat: "gonadal", color: "#E8A84A", desc: "Primary androgen. Drives muscle protein synthesis, bone density, erythropoiesis, libido, and spatial cognition.", moa: "Binds AR in muscle/bone/brain for anabolic gene transcription. Aromatized to estradiol via CYP19A1." },
+  { id: "testosterone", name: "Testosterone", unit: "ng/dL", low: 300, high: 1000, optimal: [500, 800], cat: "gonadal", color: "#1A56DB", desc: "Primary androgen. Drives muscle protein synthesis, bone density, erythropoiesis, libido, and spatial cognition.", moa: "Binds AR in muscle/bone/brain for anabolic gene transcription. Aromatized to estradiol via CYP19A1." },
   { id: "freeT", name: "Free Testosterone", unit: "pg/mL", low: 5, high: 21, optimal: [9, 18], cat: "gonadal", color: "#D4963A", desc: "Bioavailable fraction not bound to SHBG or albumin. Only 2-3% of total T. The fraction that actually acts.", moa: "Diffuses directly into target cells without carrier proteins. The true effector molecule of androgen signaling." },
   { id: "estradiol", name: "Estradiol (E2)", unit: "pg/mL", low: 20, high: 55, optimal: [25, 40], cat: "gonadal", color: "#D44A78", desc: "Primary estrogen. Neuroprotective, cardioprotective, critical for bone turnover.", moa: "Binds ER-alpha (reproductive) and ER-beta (brain, bone, CV). Modulates serotonin receptor density and BDNF." },
   { id: "progesterone", name: "Progesterone", unit: "ng/mL", low: 0.2, high: 1.4, optimal: [0.5, 1.0], cat: "gonadal", color: "#9B4AE8", desc: "Neurosteroid and GABA-A modulator. Promotes deep sleep N3, calms neural excitability.", moa: "Metabolized to allopregnanolone, a potent GABA-A positive allosteric modulator with anxiolytic/sedative effects." },
@@ -54,7 +54,7 @@ const PATHWAYS = [
 const BLOG = [
   { title: "The Cortisol Awakening Response", tag: "HPA AXIS", color: "#E8754A", read: "6 min", body: "Within 30 minutes of waking, cortisol surges 50\u201375% above baseline. This is the cortisol awakening response (CAR), essential for memory consolidation, immune activation, and circadian cortisol slope.\n\nThe CAR is triggered by light hitting melanopsin-containing retinal ganglion cells, signaling the SCN, activating the PVN to release CRH, stimulating ACTH, driving adrenal cortisol.\n\nA blunted CAR is associated with burnout and depression. An exaggerated CAR appears in anticipatory anxiety and PTSD. The diurnal cortisol slope (morning-to-evening decline) predicts all-cause mortality better than any single measurement.\n\nProtocol: Get 10 minutes of sunlight within 30 minutes of waking. This is the single most powerful tool for setting the CAR. Overcast days still deliver 10\u2013100x more lux than indoor lighting." },
   { title: "Why Fasting Insulin Matters More Than Glucose", tag: "METABOLIC", color: "#E8D44A", read: "5 min", body: "Your doctor checks fasting glucose. It is normal. You are told you are fine. But fasting insulin is already 3x optimal, and nobody tested it.\n\nGlucose is the last domino to fall. Insulin rises years \u2014 sometimes a decade \u2014 before glucose becomes abnormal. By the time fasting glucose hits 100, you have been insulin resistant for years with elevated lipogenesis, suppressed SHBG, and progressive visceral fat.\n\nOptimal fasting insulin is 3\u20138. Above 8 = compensating. Above 12 = established resistance. Above 20 = pre-diabetic trajectory.\n\nThe fix: time-restricted eating (16:8) drops insulin below 3 where AMPK activates. Post-meal walking activates GLUT4 independent of insulin. Eating protein and fiber before carbs in the same meal blunts glucose spikes 40\u201370%." },
-  { title: "The Testosterone-Sleep Connection", tag: "HPG AXIS", color: "#E8A84A", read: "5 min", body: "Testosterone is produced in pulses locked to sleep architecture. Each REM cycle triggers a GnRH pulse from the hypothalamus, causing an LH surge, driving Leydig cell secretion. You get 4\u20136 REM cycles per night. Each is a testosterone pulse.\n\nSleeping 5 hours instead of 8 reduces next-day testosterone by 10\u201315% \u2014 equivalent to aging 10\u201315 years. The effect is dose-dependent.\n\nThe temperature connection: core body temp must drop 1\u20133 degrees F for sleep onset. Room at 65\u201367F is optimal. A hot bath 90 min before bed paradoxically helps \u2014 vasodilation accelerates core cooling.\n\nSleep apnea is the hidden testosterone killer. Fragmented sleep destroys REM. CPAP alone can raise T 15\u201325% in OSA patients." },
+  { title: "The Testosterone-Sleep Connection", tag: "HPG AXIS", color: "#1A56DB", read: "5 min", body: "Testosterone is produced in pulses locked to sleep architecture. Each REM cycle triggers a GnRH pulse from the hypothalamus, causing an LH surge, driving Leydig cell secretion. You get 4\u20136 REM cycles per night. Each is a testosterone pulse.\n\nSleeping 5 hours instead of 8 reduces next-day testosterone by 10\u201315% \u2014 equivalent to aging 10\u201315 years. The effect is dose-dependent.\n\nThe temperature connection: core body temp must drop 1\u20133 degrees F for sleep onset. Room at 65\u201367F is optimal. A hot bath 90 min before bed paradoxically helps \u2014 vasodilation accelerates core cooling.\n\nSleep apnea is the hidden testosterone killer. Fragmented sleep destroys REM. CPAP alone can raise T 15\u201325% in OSA patients." },
   { title: "SHBG: The Hidden Controller", tag: "HPG AXIS", color: "#A0884A", read: "4 min", body: "Total testosterone gets all the attention. But SHBG determines how much is actually usable.\n\nSHBG binds testosterone with high affinity, rendering it inactive. Only 2\u20133% circulates as free T. Two men with identical total T of 500 can have vastly different free T depending on SHBG.\n\nWhat raises SHBG: estrogens, thyroid excess, aging, low-calorie diets, liver disease. What lowers it: insulin (why insulin resistance lowers SHBG), androgens, growth hormone, obesity.\n\nTotal T without SHBG and free T is an incomplete picture. Always test all three together." },
 ];
 
@@ -90,7 +90,7 @@ function getStatus(h, v) {
 
 const ST = {
   optimal: { c: "#3AAE6F", bg: "rgba(58,174,111,0.08)", l: "Optimal" },
-  suboptimal: { c: "#E8A84A", bg: "rgba(232,168,74,0.08)", l: "Suboptimal" },
+  suboptimal: { c: "#1A56DB", bg: "rgba(232,168,74,0.08)", l: "Suboptimal" },
   low: { c: "#E8544A", bg: "rgba(232,84,74,0.08)", l: "Below Range" },
   high: { c: "#E8544A", bg: "rgba(232,84,74,0.08)", l: "Above Range" },
   empty: { c: "#4A5568", bg: "transparent", l: "\u2014" },
@@ -125,7 +125,7 @@ function analyze(values) {
     protocols.push({ title: "Thyroid Optimization", time: "With meals", items: ["Selenium 200mcg \u2014 deiodinase cofactor", "Zinc 30mg with dinner", "Gluten elimination 30 days", "Check TPO/TG antibodies", "Brazil nuts 2\u20133 daily"] });
   }
   if (t && (t.status === "low" || t.status === "suboptimal")) {
-    findings.push({ sev: t.status === "low" ? 2 : 1, title: "Testosterone " + (t.status === "low" ? "Deficiency" : "Suboptimal"), text: "Testosterone at " + t.value + " ng/dL " + (t.status === "low" ? "is below clinical symptom threshold." : "is below functional optimum."), color: "#E8A84A" });
+    findings.push({ sev: t.status === "low" ? 2 : 1, title: "Testosterone " + (t.status === "low" ? "Deficiency" : "Suboptimal"), text: "Testosterone at " + t.value + " ng/dL " + (t.status === "low" ? "is below clinical symptom threshold." : "is below functional optimum."), color: "#1A56DB" });
     protocols.push({ title: "Androgen Optimization", time: "AM/Training", items: ["Compound resistance 3\u20134x/week at 70\u201385% 1RM", "Sleep 7\u20139h at 65\u201367F", "Tongkat Ali 400mg AM", "Boron 10mg daily", "Eliminate alcohol"] });
   }
   if (prl && prl.value > 18) {
@@ -185,11 +185,11 @@ function Arc({ score, size }) {
   const r = size / 2 - 8;
   const circ = Math.PI * r;
   const off = circ - (score / 100) * circ;
-  const col = score >= 80 ? "#3AAE6F" : score >= 55 ? "#E8A84A" : "#E8544A";
+  const col = score >= 80 ? "#3AAE6F" : score >= 55 ? "#1A56DB" : "#E8544A";
   const d = "M 8," + (size / 2 + 4) + " A " + r + "," + r + " 0 0 1 " + (size - 8) + "," + (size / 2 + 4);
   return (
     <svg width={size} height={size / 2 + 16} viewBox={"0 0 " + size + " " + (size / 2 + 16)}>
-      <path d={d} fill="none" stroke="#1E293B" strokeWidth="6" strokeLinecap="round" />
+      <path d={d} fill="none" stroke="#E2E8F0" strokeWidth="6" strokeLinecap="round" />
       <path d={d} fill="none" stroke={col} strokeWidth="6" strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={off} style={{ transition: "stroke-dashoffset 1s ease" }} />
       <text x={size / 2} y={size / 2 - 2} textAnchor="middle" fontSize="28" fontWeight="700" fill={col} fontFamily="IBM Plex Mono, monospace">{score}</text>
       <text x={size / 2} y={size / 2 + 14} textAnchor="middle" fontSize="8" fill="#64748B" letterSpacing="2">ENDOCRINE SCORE</text>
@@ -199,7 +199,7 @@ function Arc({ score, size }) {
 
 function Card({ children, border }) {
   return (
-    <div style={{ background: "#151D2E", border: "1px solid " + (border || "#1E293B"), borderRadius: 12, padding: "16px 20px", marginBottom: 10 }}>
+    <div style={{ background: "#FFFFFF", border: "1px solid " + (border || "#E2E8F0"), borderRadius: 12, padding: "16px 20px", marginBottom: 10 }}>
       {children}
     </div>
   );
@@ -267,28 +267,28 @@ export default function HormoneOptimizer() {
   const tabs = [{ k: "input", l: "Panel" }, { k: "results", l: "Analysis" }, { k: "circadian", l: "Circadian" }, { k: "lifestyle", l: "Lifestyle" }, { k: "learn", l: "Learn" }];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0F172A", color: "#E2E8F0", fontFamily: "'IBM Plex Sans', sans-serif" }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap');*{box-sizing:border-box;margin:0;padding:0}input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}input[type=number]{-moz-appearance:textfield}::selection{background:rgba(232,168,74,0.3)}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:#1E293B;border-radius:3px}@keyframes su{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
+    <div style={{ minHeight: "100vh", background: "#FAFCFE", color: "#0F1A2E", fontFamily: "'IBM Plex Sans', sans-serif" }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap');*{box-sizing:border-box;margin:0;padding:0}input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}input[type=number]{-moz-appearance:textfield}::selection{background:rgba(232,168,74,0.3)}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:#E2E8F0;border-radius:3px}@keyframes su{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}`}</style>
 
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "40px 32px" }}>
         {/* HEADER */}
-        <header style={{ marginBottom: 40, borderBottom: "1px solid #1E293B", paddingBottom: 28 }}>
+        <header style={{ marginBottom: 40, borderBottom: "1px solid #E2E8F0", paddingBottom: 28 }}>
           <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 8 }}>
-            <span style={{ fontFamily: "'IBM Plex Mono'", fontSize: 11, fontWeight: 600, letterSpacing: 3, color: "#E8A84A", textTransform: "uppercase" }}>Endocrine Intelligence Lab</span>
+            <span style={{ fontFamily: "'IBM Plex Mono'", fontSize: 11, fontWeight: 600, letterSpacing: 3, color: "#1A56DB", textTransform: "uppercase" }}>Endocrine Intelligence Lab</span>
             <span style={{ fontFamily: "'IBM Plex Mono'", fontSize: 10, color: "#475569" }}>v3.0</span>
           </div>
           <h1 style={{ fontFamily: "'IBM Plex Serif'", fontSize: "clamp(30px, 5vw, 46px)", fontWeight: 700, color: "#F8FAFC", lineHeight: 1.1, marginBottom: 8 }}>Hormone Optimizer</h1>
           <p style={{ fontSize: 14, color: "#94A3B8", lineHeight: 1.7, maxWidth: 640 }}>Comprehensive endocrine panel analysis with mechanisms, personalized diet/exercise protocols, circadian architecture, and lifestyle optimization.</p>
           <div style={{ display: "flex", gap: 8, marginTop: 18, flexWrap: "wrap", alignItems: "center" }}>
             {["male", "female"].map(s => (
-              <button key={s} onClick={() => setSex(s)} style={{ padding: "5px 14px", borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: "pointer", background: sex === s ? "rgba(232,168,74,0.12)" : "transparent", border: "1px solid " + (sex === s ? "#E8A84A40" : "#1E293B"), color: sex === s ? "#E8A84A" : "#64748B", textTransform: "capitalize" }}>{s}</button>
+              <button key={s} onClick={() => setSex(s)} style={{ padding: "5px 14px", borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: "pointer", background: sex === s ? "rgba(232,168,74,0.12)" : "transparent", border: "1px solid " + (sex === s ? "#1A56DB40" : "#E2E8F0"), color: sex === s ? "#1A56DB" : "#64748B", textTransform: "capitalize" }}>{s}</button>
             ))}
-            <div style={{ display: "flex", alignItems: "center", gap: 4, padding: "0 10px", borderRadius: 6, border: "1px solid #1E293B" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 4, padding: "0 10px", borderRadius: 6, border: "1px solid #E2E8F0" }}>
               <span style={{ fontSize: 11, color: "#64748B" }}>Age</span>
               <input type="number" value={age} onChange={e => setAge(e.target.value)} style={{ width: 36, background: "transparent", border: "none", color: "#E2E8F0", fontSize: 13, fontFamily: "'IBM Plex Mono'", outline: "none", textAlign: "center" }} />
             </div>
-            <button onClick={load} style={{ padding: "5px 14px", borderRadius: 6, fontSize: 11, cursor: "pointer", background: "transparent", border: "1px solid #1E293B", color: "#64748B" }}>Load sample</button>
-            <div style={{ marginLeft: "auto", display: "flex", gap: 3, background: "#1E293B", borderRadius: 8, padding: 3 }}>
+            <button onClick={load} style={{ padding: "5px 14px", borderRadius: 6, fontSize: 11, cursor: "pointer", background: "transparent", border: "1px solid #E2E8F0", color: "#64748B" }}>Load sample</button>
+            <div style={{ marginLeft: "auto", display: "flex", gap: 3, background: "#E2E8F0", borderRadius: 8, padding: 3 }}>
               {tabs.map(tab => (
                 <button key={tab.k} onClick={() => setView(tab.k)} style={{ padding: "5px 12px", borderRadius: 5, fontSize: 10, fontWeight: 600, cursor: "pointer", background: view === tab.k ? "#0F172A" : "transparent", border: "none", color: view === tab.k ? "#E2E8F0" : "#64748B" }}>{tab.l}</button>
               ))}
@@ -316,7 +316,7 @@ export default function HormoneOptimizer() {
                     const vP = values[h.id] !== "" && !isNaN(parseFloat(values[h.id])) ? Math.max(0, Math.min(100, ((parseFloat(values[h.id]) - mn) / rng) * 100)) : null;
                     return (
                       <div key={h.id}>
-                        <div onClick={() => setExp(isE ? null : h.id)} style={{ display: "grid", gridTemplateColumns: "170px 100px 1fr 95px", gap: 10, alignItems: "center", padding: "9px 14px", background: isE ? "#1E293B" : "#151D2E", border: "1px solid " + (isE ? h.color + "30" : "#1E293B"), borderRadius: isE ? "10px 10px 0 0" : "10px", cursor: "pointer" }}>
+                        <div onClick={() => setExp(isE ? null : h.id)} style={{ display: "grid", gridTemplateColumns: "170px 100px 1fr 95px", gap: 10, alignItems: "center", padding: "9px 14px", background: isE ? "#E2E8F0" : "#FFFFFF", border: "1px solid " + (isE ? h.color + "30" : "#E2E8F0"), borderRadius: isE ? "10px 10px 0 0" : "10px", cursor: "pointer" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
                             <div style={{ width: 7, height: 7, borderRadius: "50%", background: h.color, boxShadow: s !== "empty" ? "0 0 6px " + h.color + "50" : "none" }} />
                             <span style={{ fontSize: 12.5, fontWeight: 600, color: "#E2E8F0" }}>{h.name}</span>
@@ -325,7 +325,7 @@ export default function HormoneOptimizer() {
                             <input type="number" value={values[h.id]} onChange={e => { e.stopPropagation(); setValues(p => ({ ...p, [h.id]: e.target.value })); }} onClick={e => e.stopPropagation()} placeholder="\u2014" style={{ width: 56, background: "rgba(255,255,255,0.04)", border: "1px solid #2D3748", borderRadius: 5, padding: "3px 6px", color: "#F1F5F9", fontSize: 12, textAlign: "right", fontFamily: "'IBM Plex Mono'", outline: "none" }} />
                             <span style={{ fontSize: 8.5, color: "#64748B", fontFamily: "'IBM Plex Mono'" }}>{h.unit}</span>
                           </div>
-                          <div style={{ position: "relative", height: 4, background: "#1E293B", borderRadius: 2 }}>
+                          <div style={{ position: "relative", height: 4, background: "#E2E8F0", borderRadius: 2 }}>
                             <div style={{ position: "absolute", left: oL + "%", width: oW + "%", height: "100%", background: h.color + "20", borderRadius: 2 }} />
                             {vP !== null && <div style={{ position: "absolute", left: vP + "%", top: -2, width: 8, height: 8, borderRadius: "50%", background: sc.c, transform: "translateX(-4px)", transition: "left 0.3s" }} />}
                           </div>
@@ -337,7 +337,7 @@ export default function HormoneOptimizer() {
                           <div style={{ background: "#1A2332", borderRadius: "0 0 10px 10px", border: "1px solid " + h.color + "20", borderTop: "none", padding: "14px 18px", animation: "su 0.3s ease" }}>
                             <p style={{ fontSize: 12, color: "#94A3B8", lineHeight: 1.7, marginBottom: 10 }}>{h.desc}</p>
                             <div style={{ background: "rgba(232,168,74,0.04)", border: "1px solid rgba(232,168,74,0.1)", borderRadius: 8, padding: "10px 14px", marginBottom: 10 }}>
-                              <span style={{ fontSize: 9, fontWeight: 600, color: "#E8A84A", letterSpacing: 1.5, textTransform: "uppercase", fontFamily: "'IBM Plex Mono'" }}>Mechanism</span>
+                              <span style={{ fontSize: 9, fontWeight: 600, color: "#1A56DB", letterSpacing: 1.5, textTransform: "uppercase", fontFamily: "'IBM Plex Mono'" }}>Mechanism</span>
                               <p style={{ fontSize: 11, color: "#CBD5E1", lineHeight: 1.7, marginTop: 4 }}>{h.moa}</p>
                             </div>
                             <div style={{ fontSize: 10.5, color: "#64748B" }}>
@@ -351,7 +351,7 @@ export default function HormoneOptimizer() {
                 </div>
               </div>
             ))}
-            <button onClick={run} disabled={filled < 3} style={{ width: "100%", padding: 13, borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: filled < 3 ? "not-allowed" : "pointer", background: filled >= 3 ? "linear-gradient(135deg, #E8A84A, #E8754A)" : "#1E293B", border: "none", color: filled >= 3 ? "#0F172A" : "#475569", marginTop: 8 }}>
+            <button onClick={run} disabled={filled < 3} style={{ width: "100%", padding: 13, borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: filled < 3 ? "not-allowed" : "pointer", background: filled >= 3 ? "linear-gradient(135deg, #1A56DB, #E8754A)" : "#E2E8F0", border: "none", color: filled >= 3 ? "#0F172A" : "#475569", marginTop: 8 }}>
               {filled < 3 ? "Enter " + (3 - filled) + " more markers" : "Run Endocrine Analysis \u2192"}
             </button>
           </div>
@@ -373,14 +373,14 @@ export default function HormoneOptimizer() {
               <Card>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                   <SectionLabel label="AI Synthesis" />
-                  <button onClick={runAI} disabled={aiLoading} style={{ padding: "5px 14px", borderRadius: 6, fontSize: 11, fontWeight: 600, cursor: "pointer", background: "rgba(232,168,74,0.1)", border: "1px solid rgba(232,168,74,0.2)", color: "#E8A84A" }}>{aiLoading ? "Analyzing\u2026" : "Generate Huberman Analysis"}</button>
+                  <button onClick={runAI} disabled={aiLoading} style={{ padding: "5px 14px", borderRadius: 6, fontSize: 11, fontWeight: 600, cursor: "pointer", background: "rgba(232,168,74,0.1)", border: "1px solid rgba(232,168,74,0.2)", color: "#1A56DB" }}>{aiLoading ? "Analyzing\u2026" : "Generate Huberman Analysis"}</button>
                 </div>
                 {aiResult ? (
                   <div>
                     <p style={{ fontSize: 13, color: "#CBD5E1", lineHeight: 1.8, marginBottom: 12 }}>{aiResult.synthesis}</p>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                      {[{ l: "Root Mechanism", v: aiResult.root_mechanism, c: "#E8544A" }, { l: "First Intervention", v: aiResult.first_intervention, c: "#3AAE6F" }, { l: "Cascade Prediction", v: aiResult.cascade_prediction, c: "#E8A84A" }, { l: "Monitoring Plan", v: aiResult.monitoring_plan, c: "#4A9FE8" }].map(i => (
-                        <div key={i.l} style={{ background: "#0F172A", borderRadius: 8, padding: 10, border: "1px solid #1E293B" }}>
+                      {[{ l: "Root Mechanism", v: aiResult.root_mechanism, c: "#E8544A" }, { l: "First Intervention", v: aiResult.first_intervention, c: "#3AAE6F" }, { l: "Cascade Prediction", v: aiResult.cascade_prediction, c: "#1A56DB" }, { l: "Monitoring Plan", v: aiResult.monitoring_plan, c: "#4A9FE8" }].map(i => (
+                        <div key={i.l} style={{ background: "#0F172A", borderRadius: 8, padding: 10, border: "1px solid #E2E8F0" }}>
                           <div style={{ fontSize: 8, fontWeight: 700, color: i.c, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 3, fontFamily: "'IBM Plex Mono'" }}>{i.l}</div>
                           <div style={{ fontSize: 11, color: "#94A3B8", lineHeight: 1.5 }}>{i.v}</div>
                         </div>
@@ -417,7 +417,7 @@ export default function HormoneOptimizer() {
               <div style={{ marginBottom: 24 }}>
                 <SectionLabel label="Clinical Findings" />
                 {result.findings.map((f, i) => (
-                  <div key={i} style={{ background: "#151D2E", border: "1px solid " + f.color + "20", borderLeft: "3px solid " + f.color, borderRadius: 10, padding: "14px 18px", marginBottom: 10 }}>
+                  <div key={i} style={{ background: "#FFFFFF", border: "1px solid " + f.color + "20", borderLeft: "3px solid " + f.color, borderRadius: 10, padding: "14px 18px", marginBottom: 10 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
                       <span style={{ fontSize: 8, fontWeight: 700, padding: "2px 6px", borderRadius: 4, background: f.color + "15", color: f.color, textTransform: "uppercase", letterSpacing: 1, fontFamily: "'IBM Plex Mono'" }}>{f.sev === 3 ? "Critical" : f.sev === 2 ? "Significant" : "Notable"}</span>
                       <span style={{ fontSize: 12, fontWeight: 600, color: "#E2E8F0" }}>{f.title}</span>
@@ -436,7 +436,7 @@ export default function HormoneOptimizer() {
                     <Card key={i}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
                         <span style={{ fontSize: 13, fontWeight: 700, color: "#F1F5F9", fontFamily: "'IBM Plex Serif'" }}>{p.title}</span>
-                        <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 4, background: "rgba(232,168,74,0.08)", color: "#E8A84A", fontFamily: "'IBM Plex Mono'", letterSpacing: 1 }}>{p.time}</span>
+                        <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 4, background: "rgba(232,168,74,0.08)", color: "#1A56DB", fontFamily: "'IBM Plex Mono'", letterSpacing: 1 }}>{p.time}</span>
                       </div>
                       <ItemList items={p.items} />
                     </Card>
@@ -469,14 +469,14 @@ export default function HormoneOptimizer() {
                   {result.exRecs.map((ex, i) => (
                     <Card key={i}>
                       <span style={{ fontSize: 13, fontWeight: 700, color: "#F1F5F9", fontFamily: "'IBM Plex Serif'", display: "block" }}>{ex.title}</span>
-                      <span style={{ fontSize: 10, color: "#E8A84A", fontFamily: "'IBM Plex Mono'", display: "block", marginBottom: 10 }}>{ex.sub}</span>
+                      <span style={{ fontSize: 10, color: "#1A56DB", fontFamily: "'IBM Plex Mono'", display: "block", marginBottom: 10 }}>{ex.sub}</span>
                       <ItemList items={ex.items} />
                     </Card>
                   ))}
                 </div>
               </div>
             )}
-            <button onClick={() => setView("input")} style={{ padding: "8px 20px", borderRadius: 6, fontSize: 12, cursor: "pointer", background: "transparent", border: "1px solid #1E293B", color: "#64748B" }}>{"\u2190"} Back</button>
+            <button onClick={() => setView("input")} style={{ padding: "8px 20px", borderRadius: 6, fontSize: 12, cursor: "pointer", background: "transparent", border: "1px solid #E2E8F0", color: "#64748B" }}>{"\u2190"} Back</button>
           </div>
         )}
 
@@ -491,20 +491,20 @@ export default function HormoneOptimizer() {
                 <defs>
                   <linearGradient id="dn" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stopColor="#4A9FE8" stopOpacity="0.04" />
-                    <stop offset="25%" stopColor="#E8A84A" stopOpacity="0.06" />
+                    <stop offset="25%" stopColor="#1A56DB" stopOpacity="0.06" />
                     <stop offset="50%" stopColor="#E8D44A" stopOpacity="0.03" />
-                    <stop offset="75%" stopColor="#E8A84A" stopOpacity="0.06" />
+                    <stop offset="75%" stopColor="#1A56DB" stopOpacity="0.06" />
                     <stop offset="100%" stopColor="#4A9FE8" stopOpacity="0.04" />
                   </linearGradient>
                 </defs>
                 <rect x="0" y="0" width="640" height="140" fill="url(#dn)" rx="6" />
                 {[0, 1, 2, 3, 4].map(i => (
                   <g key={i}>
-                    <line x1={i * 160} y1="0" x2={i * 160} y2="140" stroke="#1E293B" strokeWidth="0.8" />
+                    <line x1={i * 160} y1="0" x2={i * 160} y2="140" stroke="#E2E8F0" strokeWidth="0.8" />
                     <text x={i * 160} y="156" textAnchor="middle" fontSize="10" fill="#475569" fontFamily="IBM Plex Mono, monospace">{["12AM", "6AM", "12PM", "6PM", "12AM"][i]}</text>
                   </g>
                 ))}
-                {[0.25, 0.5, 0.75].map(p => <line key={p} x1="0" y1={140 - p * 130} x2="640" y2={140 - p * 130} stroke="#1E293B" strokeWidth="0.5" />)}
+                {[0.25, 0.5, 0.75].map(p => <line key={p} x1="0" y1={140 - p * 130} x2="640" y2={140 - p * 130} stroke="#E2E8F0" strokeWidth="0.5" />)}
                 {Object.entries(CIRCADIAN).map(([id, d]) => {
                   const h = HORMONES.find(x => x.id === id);
                   const mx = Math.max(...d.wave);
@@ -524,7 +524,7 @@ export default function HormoneOptimizer() {
                 const h = HORMONES.find(x => x.id === id);
                 const s = getStatus(h, values[h.id]);
                 return (
-                  <div key={id} style={{ background: "#151D2E", border: "1px solid #1E293B", borderRadius: 14, padding: "20px 22px", display: "grid", gridTemplateColumns: "1fr 350px", gap: 20, alignItems: "start" }}>
+                  <div key={id} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: 14, padding: "20px 22px", display: "grid", gridTemplateColumns: "1fr 350px", gap: 20, alignItems: "start" }}>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                         <div style={{ width: 10, height: 10, borderRadius: "50%", background: h.color }} />
@@ -536,7 +536,7 @@ export default function HormoneOptimizer() {
                         <div><span style={{ fontSize: 9, color: "#475569", textTransform: "uppercase", letterSpacing: 1, fontFamily: "'IBM Plex Mono'", fontWeight: 600 }}>Nadir</span><div style={{ fontSize: 12, color: "#E8544A", fontWeight: 600, marginTop: 2 }}>{data.nadir}</div></div>
                       </div>
                       <div style={{ background: "rgba(232,168,74,0.04)", border: "1px solid rgba(232,168,74,0.1)", borderRadius: 8, padding: "8px 12px", marginBottom: 8 }}>
-                        <span style={{ fontSize: 9, fontWeight: 600, color: "#E8A84A", letterSpacing: 1, textTransform: "uppercase", fontFamily: "'IBM Plex Mono'" }}>Testing Protocol</span>
+                        <span style={{ fontSize: 9, fontWeight: 600, color: "#1A56DB", letterSpacing: 1, textTransform: "uppercase", fontFamily: "'IBM Plex Mono'" }}>Testing Protocol</span>
                         <p style={{ fontSize: 11, color: "#CBD5E1", lineHeight: 1.6, marginTop: 3 }}>{data.protocol}</p>
                       </div>
                       <p style={{ fontSize: 11, color: "#64748B", lineHeight: 1.7, fontStyle: "italic" }}>{data.science}</p>
@@ -577,7 +577,7 @@ export default function HormoneOptimizer() {
             <p style={{ fontSize: 13, color: "#64748B", lineHeight: 1.7, marginBottom: 24 }}>Mechanism-level education. Understand why, not just what.</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {BLOG.map((post, i) => (
-                <div key={i} style={{ background: "#151D2E", border: "1px solid #1E293B", borderRadius: 12, overflow: "hidden" }}>
+                <div key={i} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: 12, overflow: "hidden" }}>
                   <div onClick={() => setBlogOpen(blogOpen === i ? null : i)} style={{ padding: "16px 20px", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div>
                       <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 6px", borderRadius: 4, background: post.color + "15", color: post.color, textTransform: "uppercase", letterSpacing: 1, fontFamily: "'IBM Plex Mono'", marginRight: 10 }}>{post.tag}</span>
@@ -590,7 +590,7 @@ export default function HormoneOptimizer() {
                   </div>
                   {blogOpen === i && (
                     <div style={{ padding: "0 20px 20px", animation: "su 0.3s ease" }}>
-                      <div style={{ borderTop: "1px solid #1E293B", paddingTop: 16 }}>
+                      <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 16 }}>
                         {post.body.split("\n\n").map((para, pi) => (
                           <p key={pi} style={{ fontSize: 13, color: "#94A3B8", lineHeight: 1.85, marginBottom: 12 }}>{para}</p>
                         ))}
@@ -603,7 +603,7 @@ export default function HormoneOptimizer() {
           </div>
         )}
 
-        <footer style={{ marginTop: 52, paddingTop: 20, borderTop: "1px solid #1E293B", textAlign: "center" }}>
+        <footer style={{ marginTop: 52, paddingTop: 20, borderTop: "1px solid #E2E8F0", textAlign: "center" }}>
           <p style={{ fontSize: 10, color: "#334155", lineHeight: 2 }}>
             Built by Aakriti Suri {"\u00B7"} Educational tool {"\u00B7"} Not medical advice {"\u00B7"} Consult an endocrinologist
             <br />Protocols informed by Huberman Lab, Attia, and peer-reviewed literature
