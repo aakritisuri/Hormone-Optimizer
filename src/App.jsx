@@ -90,7 +90,7 @@ function getStatus(h, v) {
 
 const ST = {
   optimal: { c: "#3AAE6F", bg: "rgba(58,174,111,0.08)", l: "Optimal" },
-  suboptimal: { c: "#1A56DB", bg: "rgba(232,168,74,0.08)", l: "Suboptimal" },
+  suboptimal: { c: "#E8A84A", bg: "rgba(232,168,74,0.08)", l: "Suboptimal" },
   low: { c: "#E8544A", bg: "rgba(232,84,74,0.08)", l: "Below Range" },
   high: { c: "#E8544A", bg: "rgba(232,84,74,0.08)", l: "Above Range" },
   empty: { c: "#4A5568", bg: "transparent", l: "\u2014" },
@@ -171,10 +171,10 @@ function Wave({ wave, color, w, h }) {
       <polygon points={area} fill={"url(#w" + color.replace("#", "") + ")"} />
       <polyline points={pts} fill="none" stroke={color} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
       {wave.map((v, i) => v === mx ? (
-        <circle key={i} cx={(i / (wave.length - 1)) * w} cy={h - 4 - (v / mx) * (h - 12)} r="4" fill={color} stroke="#0F172A" strokeWidth="2.5" />
+        <circle key={i} cx={(i / (wave.length - 1)) * w} cy={h - 4 - (v / mx) * (h - 12)} r="4" fill={color} stroke="#FAFCFE" strokeWidth="2.5" />
       ) : null)}
       {labels.map((t, i) => (
-        <text key={i} x={(i / 4) * w} y={h + 14} textAnchor="middle" fontSize="9" fill="#64748B" fontFamily="IBM Plex Mono, monospace">{t}</text>
+        <text key={i} x={(i / 4) * w} y={h + 14} textAnchor="middle" fontSize="9" fill="#6B7280" fontFamily="IBM Plex Mono, monospace">{t}</text>
       ))}
     </svg>
   );
@@ -192,7 +192,7 @@ function Arc({ score, size }) {
       <path d={d} fill="none" stroke="#E2E8F0" strokeWidth="6" strokeLinecap="round" />
       <path d={d} fill="none" stroke={col} strokeWidth="6" strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={off} style={{ transition: "stroke-dashoffset 1s ease" }} />
       <text x={size / 2} y={size / 2 - 2} textAnchor="middle" fontSize="28" fontWeight="700" fill={col} fontFamily="IBM Plex Mono, monospace">{score}</text>
-      <text x={size / 2} y={size / 2 + 14} textAnchor="middle" fontSize="8" fill="#64748B" letterSpacing="2">ENDOCRINE SCORE</text>
+      <text x={size / 2} y={size / 2 + 14} textAnchor="middle" fontSize="8" fill="#6B7280" letterSpacing="2">ENDOCRINE SCORE</text>
     </svg>
   );
 }
@@ -214,8 +214,8 @@ function ItemList({ items }) {
       <div key={j} style={{ display: "flex", gap: 9, marginBottom: 8, alignItems: "flex-start" }}>
         <span style={{ fontFamily: "'IBM Plex Mono'", fontSize: 10, color: "#475569", marginTop: 2, flexShrink: 0 }}>{String(j + 1).padStart(2, "0")}</span>
         <div>
-          <span style={{ fontSize: 12, color: "#E2E8F0", fontWeight: 500 }}>{main}</span>
-          {detail && <span style={{ fontSize: 11.5, color: "#64748B" }}>{detail}</span>}
+          <span style={{ fontSize: 12, color: "#0F1A2E", fontWeight: 500 }}>{main}</span>
+          {detail && <span style={{ fontSize: 11.5, color: "#6B7280" }}>{detail}</span>}
         </div>
       </div>
     );
@@ -223,7 +223,7 @@ function ItemList({ items }) {
 }
 
 function SectionLabel({ label }) {
-  return <span style={{ fontFamily: "'IBM Plex Mono'", fontSize: 10, fontWeight: 600, letterSpacing: 2, color: "#64748B", textTransform: "uppercase", display: "block", marginBottom: 12 }}>{label}</span>;
+  return <span style={{ fontFamily: "'IBM Plex Mono'", fontSize: 10, fontWeight: 600, letterSpacing: 2, color: "#6B7280", textTransform: "uppercase", display: "block", marginBottom: 12 }}>{label}</span>;
 }
 
 export default function HormoneOptimizer() {
@@ -239,6 +239,17 @@ export default function HormoneOptimizer() {
   const filled = Object.values(values).filter(v => v !== "").length;
 
   const run = () => { const r = analyze(values); setResult(r); if (r) setView("results"); };
+  const downloadReport = () => {
+    if (!result) return;
+    let txt = "HORMONE OPTIMIZER REPORT\n" + "=".repeat(40) + "\nDate: " + new Date().toLocaleDateString() + "\nSex: " + sex + " | Age: " + age + "\nEndocrine Score: " + result.score + "/100\n\n";
+    txt += "MARKERS\n" + "-".repeat(30) + "\n";
+    result.filled.forEach(h => { txt += h.name + ": " + h.value + " " + h.unit + " (" + ST[h.status].l + ")\n"; });
+    if (result.findings.length) { txt += "\nFINDINGS\n" + "-".repeat(30) + "\n"; result.findings.forEach(f => { txt += "[" + (f.sev === 3 ? "Critical" : f.sev === 2 ? "Significant" : "Notable") + "] " + f.title + "\n" + f.text + "\n\n"; }); }
+    if (result.protocols.length) { txt += "PROTOCOLS\n" + "-".repeat(30) + "\n"; result.protocols.forEach(p => { txt += p.title + " (" + p.time + ")\n"; p.items.forEach((it, i) => { txt += "  " + (i + 1) + ". " + it + "\n"; }); txt += "\n"; }); }
+    txt += "\nDisclaimer: Educational tool. Not medical advice. Consult an endocrinologist.\n";
+    const blob = new Blob([txt], { type: "text/plain" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "hormone-report.txt"; a.click();
+  };
   const load = () => setValues({ cortisol: "22", tsh: "3.2", freeT3: "2.5", freeT4: "1.0", testosterone: "380", freeT: "6.2", estradiol: "35", progesterone: "0.4", lh: "4.5", fsh: "5.2", shbg: "48", prolactin: "22", dhea: "140", insulin: "14", vitD: "28", hba1c: "5.4", igf1: "165" });
 
   const runAI = async () => {
@@ -277,20 +288,20 @@ export default function HormoneOptimizer() {
             <span style={{ fontFamily: "'IBM Plex Mono'", fontSize: 11, fontWeight: 600, letterSpacing: 3, color: "#1A56DB", textTransform: "uppercase" }}>Endocrine Intelligence Lab</span>
             <span style={{ fontFamily: "'IBM Plex Mono'", fontSize: 10, color: "#475569" }}>v3.0</span>
           </div>
-          <h1 style={{ fontFamily: "'IBM Plex Serif'", fontSize: "clamp(30px, 5vw, 46px)", fontWeight: 700, color: "#F8FAFC", lineHeight: 1.1, marginBottom: 8 }}>Hormone Optimizer</h1>
-          <p style={{ fontSize: 14, color: "#94A3B8", lineHeight: 1.7, maxWidth: 640 }}>Comprehensive endocrine panel analysis with mechanisms, personalized diet/exercise protocols, circadian architecture, and lifestyle optimization.</p>
+          <h1 style={{ fontFamily: "'IBM Plex Serif'", fontSize: "clamp(30px, 5vw, 46px)", fontWeight: 700, color: "#0F1A2E", lineHeight: 1.1, marginBottom: 8 }}>Hormone Optimizer</h1>
+          <p style={{ fontSize: 14, color: "#4B5563", lineHeight: 1.7, maxWidth: 640 }}>Comprehensive endocrine panel analysis with mechanisms, personalized diet/exercise protocols, circadian architecture, and lifestyle optimization.</p>
           <div style={{ display: "flex", gap: 8, marginTop: 18, flexWrap: "wrap", alignItems: "center" }}>
             {["male", "female"].map(s => (
               <button key={s} onClick={() => setSex(s)} style={{ padding: "5px 14px", borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: "pointer", background: sex === s ? "rgba(232,168,74,0.12)" : "transparent", border: "1px solid " + (sex === s ? "#1A56DB40" : "#E2E8F0"), color: sex === s ? "#1A56DB" : "#64748B", textTransform: "capitalize" }}>{s}</button>
             ))}
             <div style={{ display: "flex", alignItems: "center", gap: 4, padding: "0 10px", borderRadius: 6, border: "1px solid #E2E8F0" }}>
-              <span style={{ fontSize: 11, color: "#64748B" }}>Age</span>
-              <input type="number" value={age} onChange={e => setAge(e.target.value)} style={{ width: 36, background: "transparent", border: "none", color: "#E2E8F0", fontSize: 13, fontFamily: "'IBM Plex Mono'", outline: "none", textAlign: "center" }} />
+              <span style={{ fontSize: 11, color: "#6B7280" }}>Age</span>
+              <input type="number" value={age} onChange={e => setAge(e.target.value)} style={{ width: 36, background: "#FFFFFF", border: "1px solid #D1D5DB", borderRadius: 4, color: "#0F1A2E", fontSize: 13, fontFamily: "'IBM Plex Mono'", outline: "none", textAlign: "center" }} />
             </div>
-            <button onClick={load} style={{ padding: "5px 14px", borderRadius: 6, fontSize: 11, cursor: "pointer", background: "transparent", border: "1px solid #E2E8F0", color: "#64748B" }}>Load sample</button>
+            <button onClick={load} style={{ padding: "5px 14px", borderRadius: 6, fontSize: 11, cursor: "pointer", background: "transparent", border: "1px solid #E2E8F0", color: "#6B7280" }}>Load sample</button>
             <div style={{ marginLeft: "auto", display: "flex", gap: 3, background: "#E2E8F0", borderRadius: 8, padding: 3 }}>
               {tabs.map(tab => (
-                <button key={tab.k} onClick={() => setView(tab.k)} style={{ padding: "5px 12px", borderRadius: 5, fontSize: 10, fontWeight: 600, cursor: "pointer", background: view === tab.k ? "#0F172A" : "transparent", border: "none", color: view === tab.k ? "#E2E8F0" : "#64748B" }}>{tab.l}</button>
+                <button key={tab.k} onClick={() => setView(tab.k)} style={{ padding: "5px 12px", borderRadius: 5, fontSize: 10, fontWeight: 600, cursor: "pointer", background: view === tab.k ? "#1A56DB" : "transparent", border: "none", color: view === tab.k ? "#FFFFFF" : "#6B7280" }}>{tab.l}</button>
               ))}
             </div>
           </div>
@@ -302,7 +313,7 @@ export default function HormoneOptimizer() {
             {cats.map(cat => (
               <div key={cat.key} style={{ marginBottom: 28 }}>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 12 }}>
-                  <span style={{ fontFamily: "'IBM Plex Serif'", fontSize: 16, fontWeight: 600, color: "#F1F5F9" }}>{cat.n}</span>
+                  <span style={{ fontFamily: "'IBM Plex Serif'", fontSize: 16, fontWeight: 600, color: "#0F1A2E" }}>{cat.n}</span>
                   <span style={{ fontSize: 11, color: "#475569", fontStyle: "italic" }}>{cat.s}</span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
@@ -319,11 +330,11 @@ export default function HormoneOptimizer() {
                         <div onClick={() => setExp(isE ? null : h.id)} style={{ display: "grid", gridTemplateColumns: "170px 100px 1fr 95px", gap: 10, alignItems: "center", padding: "9px 14px", background: isE ? "#E2E8F0" : "#FFFFFF", border: "1px solid " + (isE ? h.color + "30" : "#E2E8F0"), borderRadius: isE ? "10px 10px 0 0" : "10px", cursor: "pointer" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
                             <div style={{ width: 7, height: 7, borderRadius: "50%", background: h.color, boxShadow: s !== "empty" ? "0 0 6px " + h.color + "50" : "none" }} />
-                            <span style={{ fontSize: 12.5, fontWeight: 600, color: "#E2E8F0" }}>{h.name}</span>
+                            <span style={{ fontSize: 12.5, fontWeight: 600, color: "#0F1A2E" }}>{h.name}</span>
                           </div>
                           <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                            <input type="number" value={values[h.id]} onChange={e => { e.stopPropagation(); setValues(p => ({ ...p, [h.id]: e.target.value })); }} onClick={e => e.stopPropagation()} placeholder="\u2014" style={{ width: 56, background: "rgba(255,255,255,0.04)", border: "1px solid #2D3748", borderRadius: 5, padding: "3px 6px", color: "#F1F5F9", fontSize: 12, textAlign: "right", fontFamily: "'IBM Plex Mono'", outline: "none" }} />
-                            <span style={{ fontSize: 8.5, color: "#64748B", fontFamily: "'IBM Plex Mono'" }}>{h.unit}</span>
+                            <input type="number" value={values[h.id]} onChange={e => { e.stopPropagation(); setValues(p => ({ ...p, [h.id]: e.target.value })); }} onClick={e => e.stopPropagation()} placeholder="\u2014" style={{ width: 56, background: "#FFFFFF", border: "1px solid #D1D5DB", borderRadius: 5, padding: "3px 6px", color: "#0F1A2E", fontSize: 12, textAlign: "right", fontFamily: "'IBM Plex Mono'", outline: "none" }} />
+                            <span style={{ fontSize: 8.5, color: "#6B7280", fontFamily: "'IBM Plex Mono'" }}>{h.unit}</span>
                           </div>
                           <div style={{ position: "relative", height: 4, background: "#E2E8F0", borderRadius: 2 }}>
                             <div style={{ position: "absolute", left: oL + "%", width: oW + "%", height: "100%", background: h.color + "20", borderRadius: 2 }} />
@@ -334,13 +345,13 @@ export default function HormoneOptimizer() {
                           </div>
                         </div>
                         {isE && (
-                          <div style={{ background: "#1A2332", borderRadius: "0 0 10px 10px", border: "1px solid " + h.color + "20", borderTop: "none", padding: "14px 18px", animation: "su 0.3s ease" }}>
-                            <p style={{ fontSize: 12, color: "#94A3B8", lineHeight: 1.7, marginBottom: 10 }}>{h.desc}</p>
-                            <div style={{ background: "rgba(232,168,74,0.04)", border: "1px solid rgba(232,168,74,0.1)", borderRadius: 8, padding: "10px 14px", marginBottom: 10 }}>
+                          <div style={{ background: "#F0F4F8", borderRadius: "0 0 10px 10px", border: "1px solid " + h.color + "20", borderTop: "none", padding: "14px 18px", animation: "su 0.3s ease" }}>
+                            <p style={{ fontSize: 12, color: "#374151", lineHeight: 1.7, marginBottom: 10 }}>{h.desc}</p>
+                            <div style={{ background: "#F0F4F8", border: "1px solid #D1D5DB", borderRadius: 8, padding: "10px 14px", marginBottom: 10 }}>
                               <span style={{ fontSize: 9, fontWeight: 600, color: "#1A56DB", letterSpacing: 1.5, textTransform: "uppercase", fontFamily: "'IBM Plex Mono'" }}>Mechanism</span>
-                              <p style={{ fontSize: 11, color: "#CBD5E1", lineHeight: 1.7, marginTop: 4 }}>{h.moa}</p>
+                              <p style={{ fontSize: 11, color: "#374151", lineHeight: 1.7, marginTop: 4 }}>{h.moa}</p>
                             </div>
-                            <div style={{ fontSize: 10.5, color: "#64748B" }}>
+                            <div style={{ fontSize: 10.5, color: "#6B7280" }}>
                               Ref: {h.low}{"\u2013"}{h.high} {h.unit} {"\u00B7"} <span style={{ color: h.color }}>Optimal: {h.optimal[0]}{"\u2013"}{h.optimal[1]}</span>
                             </div>
                           </div>
@@ -351,7 +362,7 @@ export default function HormoneOptimizer() {
                 </div>
               </div>
             ))}
-            <button onClick={run} disabled={filled < 3} style={{ width: "100%", padding: 13, borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: filled < 3 ? "not-allowed" : "pointer", background: filled >= 3 ? "linear-gradient(135deg, #1A56DB, #E8754A)" : "#E2E8F0", border: "none", color: filled >= 3 ? "#0F172A" : "#475569", marginTop: 8 }}>
+            <button onClick={run} disabled={filled < 3} style={{ width: "100%", padding: 13, borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: filled < 3 ? "not-allowed" : "pointer", background: filled >= 3 ? "linear-gradient(135deg, #1A56DB, #E8754A)" : "#E2E8F0", border: "none", color: filled >= 3 ? "#FFFFFF" : "#475569", marginTop: 8 }}>
               {filled < 3 ? "Enter " + (3 - filled) + " more markers" : "Run Endocrine Analysis \u2192"}
             </button>
           </div>
@@ -364,7 +375,7 @@ export default function HormoneOptimizer() {
               <Card>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "8px 0" }}>
                   <Arc score={result.score} size={140} />
-                  <div style={{ fontSize: 11, color: "#64748B", marginTop: 8 }}>{result.filled.length}/{result.total} markers</div>
+                  <div style={{ fontSize: 11, color: "#6B7280", marginTop: 8 }}>{result.filled.length}/{result.total} markers</div>
                   <div style={{ display: "flex", gap: 3, marginTop: 10, flexWrap: "wrap", justifyContent: "center" }}>
                     {result.filled.map(h => <div key={h.id} title={h.name} style={{ width: 9, height: 9, borderRadius: 2, background: ST[h.status].c, opacity: 0.8 }} />)}
                   </div>
@@ -377,12 +388,12 @@ export default function HormoneOptimizer() {
                 </div>
                 {aiResult ? (
                   <div>
-                    <p style={{ fontSize: 13, color: "#CBD5E1", lineHeight: 1.8, marginBottom: 12 }}>{aiResult.synthesis}</p>
+                    <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.8, marginBottom: 12 }}>{aiResult.synthesis}</p>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                       {[{ l: "Root Mechanism", v: aiResult.root_mechanism, c: "#E8544A" }, { l: "First Intervention", v: aiResult.first_intervention, c: "#3AAE6F" }, { l: "Cascade Prediction", v: aiResult.cascade_prediction, c: "#1A56DB" }, { l: "Monitoring Plan", v: aiResult.monitoring_plan, c: "#4A9FE8" }].map(i => (
-                        <div key={i.l} style={{ background: "#0F172A", borderRadius: 8, padding: 10, border: "1px solid #E2E8F0" }}>
+                        <div key={i.l} style={{ background: "#F0F4F8", borderRadius: 8, padding: 10, border: "1px solid #E2E8F0" }}>
                           <div style={{ fontSize: 8, fontWeight: 700, color: i.c, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 3, fontFamily: "'IBM Plex Mono'" }}>{i.l}</div>
-                          <div style={{ fontSize: 11, color: "#94A3B8", lineHeight: 1.5 }}>{i.v}</div>
+                          <div style={{ fontSize: 11, color: "#4B5563", lineHeight: 1.5 }}>{i.v}</div>
                         </div>
                       ))}
                     </div>
@@ -405,7 +416,7 @@ export default function HormoneOptimizer() {
                           <span style={{ fontSize: 10, color: p.type === "inhibit" ? "#E8544A" : "#3AAE6F" }}>{p.type === "inhibit" ? "\u22A3" : "\u2192"}</span>
                           <span style={{ fontSize: 11, fontWeight: 600, color: tH.color }}>{tH.name}</span>
                         </div>
-                        <p style={{ fontSize: 10.5, color: "#94A3B8", lineHeight: 1.6 }}>{p.text}</p>
+                        <p style={{ fontSize: 10.5, color: "#4B5563", lineHeight: 1.6 }}>{p.text}</p>
                       </Card>
                     );
                   })}
@@ -420,9 +431,9 @@ export default function HormoneOptimizer() {
                   <div key={i} style={{ background: "#FFFFFF", border: "1px solid " + f.color + "20", borderLeft: "3px solid " + f.color, borderRadius: 10, padding: "14px 18px", marginBottom: 10 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
                       <span style={{ fontSize: 8, fontWeight: 700, padding: "2px 6px", borderRadius: 4, background: f.color + "15", color: f.color, textTransform: "uppercase", letterSpacing: 1, fontFamily: "'IBM Plex Mono'" }}>{f.sev === 3 ? "Critical" : f.sev === 2 ? "Significant" : "Notable"}</span>
-                      <span style={{ fontSize: 12, fontWeight: 600, color: "#E2E8F0" }}>{f.title}</span>
+                      <span style={{ fontSize: 12, fontWeight: 600, color: "#0F1A2E" }}>{f.title}</span>
                     </div>
-                    <p style={{ fontSize: 12.5, color: "#94A3B8", lineHeight: 1.8 }}>{f.text}</p>
+                    <p style={{ fontSize: 12.5, color: "#4B5563", lineHeight: 1.8 }}>{f.text}</p>
                   </div>
                 ))}
               </div>
@@ -435,7 +446,7 @@ export default function HormoneOptimizer() {
                   {result.protocols.map((p, i) => (
                     <Card key={i}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                        <span style={{ fontSize: 13, fontWeight: 700, color: "#F1F5F9", fontFamily: "'IBM Plex Serif'" }}>{p.title}</span>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: "#0F1A2E", fontFamily: "'IBM Plex Serif'" }}>{p.title}</span>
                         <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 4, background: "rgba(232,168,74,0.08)", color: "#1A56DB", fontFamily: "'IBM Plex Mono'", letterSpacing: 1 }}>{p.time}</span>
                       </div>
                       <ItemList items={p.items} />
@@ -452,7 +463,7 @@ export default function HormoneOptimizer() {
                   {result.dietRecs.map((d, i) => (
                     <Card key={i}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
-                        <span style={{ fontSize: 13, fontWeight: 700, color: "#F1F5F9", fontFamily: "'IBM Plex Serif'" }}>{d.title}</span>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: "#0F1A2E", fontFamily: "'IBM Plex Serif'" }}>{d.title}</span>
                         <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: "rgba(74,232,184,0.08)", color: "#4AE8B8", fontFamily: "'IBM Plex Mono'", letterSpacing: 1 }}>{d.cond}</span>
                       </div>
                       <ItemList items={d.items} />
@@ -468,7 +479,7 @@ export default function HormoneOptimizer() {
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: 12 }}>
                   {result.exRecs.map((ex, i) => (
                     <Card key={i}>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: "#F1F5F9", fontFamily: "'IBM Plex Serif'", display: "block" }}>{ex.title}</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: "#0F1A2E", fontFamily: "'IBM Plex Serif'", display: "block" }}>{ex.title}</span>
                       <span style={{ fontSize: 10, color: "#1A56DB", fontFamily: "'IBM Plex Mono'", display: "block", marginBottom: 10 }}>{ex.sub}</span>
                       <ItemList items={ex.items} />
                     </Card>
@@ -476,15 +487,18 @@ export default function HormoneOptimizer() {
                 </div>
               </div>
             )}
-            <button onClick={() => setView("input")} style={{ padding: "8px 20px", borderRadius: 6, fontSize: 12, cursor: "pointer", background: "transparent", border: "1px solid #E2E8F0", color: "#64748B" }}>{"\u2190"} Back</button>
+            <div style={{ display: "flex", gap: 10 }}>
+              <button onClick={() => setView("input")} style={{ padding: "8px 20px", borderRadius: 6, fontSize: 12, cursor: "pointer", background: "transparent", border: "1px solid #E2E8F0", color: "#6B7280" }}>{"\u2190"} Back</button>
+              <button onClick={downloadReport} style={{ padding: "8px 20px", borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: "pointer", background: "linear-gradient(135deg, #1A56DB, #3B82F6)", border: "none", color: "#FFFFFF" }}>Download Report</button>
+            </div>
           </div>
         )}
 
         {/* CIRCADIAN */}
         {view === "circadian" && (
           <div style={{ animation: "su 0.4s ease" }}>
-            <h2 style={{ fontFamily: "'IBM Plex Serif'", fontSize: 22, fontWeight: 700, color: "#F1F5F9", marginBottom: 6 }}>Circadian Hormone Architecture</h2>
-            <p style={{ fontSize: 13, color: "#64748B", lineHeight: 1.7, marginBottom: 24 }}>Every hormone has a time signature. Testing at the wrong time gives the wrong answer.</p>
+            <h2 style={{ fontFamily: "'IBM Plex Serif'", fontSize: 22, fontWeight: 700, color: "#0F1A2E", marginBottom: 6 }}>Circadian Hormone Architecture</h2>
+            <p style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.7, marginBottom: 24 }}>Every hormone has a time signature. Testing at the wrong time gives the wrong answer.</p>
             <Card>
               <SectionLabel label="24-Hour Overlay" />
               <svg width="100%" viewBox="0 0 640 160" style={{ overflow: "visible" }}>
@@ -515,7 +529,7 @@ export default function HormoneOptimizer() {
               <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 12, justifyContent: "center" }}>
                 {Object.keys(CIRCADIAN).map(id => {
                   const h = HORMONES.find(x => x.id === id);
-                  return <div key={id} style={{ display: "flex", alignItems: "center", gap: 5 }}><div style={{ width: 14, height: 2.5, borderRadius: 1, background: h.color }} /><span style={{ fontSize: 10, color: "#94A3B8" }}>{h.name}</span></div>;
+                  return <div key={id} style={{ display: "flex", alignItems: "center", gap: 5 }}><div style={{ width: 14, height: 2.5, borderRadius: 1, background: h.color }} /><span style={{ fontSize: 10, color: "#4B5563" }}>{h.name}</span></div>;
                 })}
               </div>
             </Card>
@@ -528,7 +542,7 @@ export default function HormoneOptimizer() {
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                         <div style={{ width: 10, height: 10, borderRadius: "50%", background: h.color }} />
-                        <span style={{ fontSize: 15, fontWeight: 700, color: "#F1F5F9", fontFamily: "'IBM Plex Serif'" }}>{h.name}</span>
+                        <span style={{ fontSize: 15, fontWeight: 700, color: "#0F1A2E", fontFamily: "'IBM Plex Serif'" }}>{h.name}</span>
                         {values[h.id] !== "" && <span style={{ fontSize: 11, fontWeight: 600, color: ST[s].c, fontFamily: "'IBM Plex Mono'", marginLeft: 6 }}>{values[h.id]} {h.unit}</span>}
                       </div>
                       <div style={{ display: "flex", gap: 18, marginBottom: 10 }}>
@@ -537,9 +551,9 @@ export default function HormoneOptimizer() {
                       </div>
                       <div style={{ background: "rgba(232,168,74,0.04)", border: "1px solid rgba(232,168,74,0.1)", borderRadius: 8, padding: "8px 12px", marginBottom: 8 }}>
                         <span style={{ fontSize: 9, fontWeight: 600, color: "#1A56DB", letterSpacing: 1, textTransform: "uppercase", fontFamily: "'IBM Plex Mono'" }}>Testing Protocol</span>
-                        <p style={{ fontSize: 11, color: "#CBD5E1", lineHeight: 1.6, marginTop: 3 }}>{data.protocol}</p>
+                        <p style={{ fontSize: 11, color: "#374151", lineHeight: 1.6, marginTop: 3 }}>{data.protocol}</p>
                       </div>
-                      <p style={{ fontSize: 11, color: "#64748B", lineHeight: 1.7, fontStyle: "italic" }}>{data.science}</p>
+                      <p style={{ fontSize: 11, color: "#6B7280", lineHeight: 1.7, fontStyle: "italic" }}>{data.science}</p>
                     </div>
                     <div style={{ paddingTop: 6 }}>
                       <Wave wave={data.wave} color={h.color} w={330} h={60} />
@@ -554,14 +568,14 @@ export default function HormoneOptimizer() {
         {/* LIFESTYLE */}
         {view === "lifestyle" && (
           <div style={{ animation: "su 0.4s ease" }}>
-            <h2 style={{ fontFamily: "'IBM Plex Serif'", fontSize: 22, fontWeight: 700, color: "#F1F5F9", marginBottom: 6 }}>Lifestyle Architecture</h2>
-            <p style={{ fontSize: 13, color: "#64748B", lineHeight: 1.7, marginBottom: 24 }}>Light, temperature, sleep, and wearable data that modulate your endocrine system more than most supplements.</p>
+            <h2 style={{ fontFamily: "'IBM Plex Serif'", fontSize: 22, fontWeight: 700, color: "#0F1A2E", marginBottom: 6 }}>Lifestyle Architecture</h2>
+            <p style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.7, marginBottom: 24 }}>Light, temperature, sleep, and wearable data that modulate your endocrine system more than most supplements.</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {LIFESTYLE.map((sec, i) => (
                 <Card key={i}>
                   <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
                     <span style={{ fontSize: 22 }}>{sec.icon}</span>
-                    <span style={{ fontSize: 16, fontWeight: 700, color: "#F1F5F9", fontFamily: "'IBM Plex Serif'" }}>{sec.title}</span>
+                    <span style={{ fontSize: 16, fontWeight: 700, color: "#0F1A2E", fontFamily: "'IBM Plex Serif'" }}>{sec.title}</span>
                   </div>
                   <ItemList items={sec.items} />
                 </Card>
@@ -573,26 +587,26 @@ export default function HormoneOptimizer() {
         {/* LEARN */}
         {view === "learn" && (
           <div style={{ animation: "su 0.4s ease" }}>
-            <h2 style={{ fontFamily: "'IBM Plex Serif'", fontSize: 22, fontWeight: 700, color: "#F1F5F9", marginBottom: 6 }}>Deep Dives</h2>
-            <p style={{ fontSize: 13, color: "#64748B", lineHeight: 1.7, marginBottom: 24 }}>Mechanism-level education. Understand why, not just what.</p>
+            <h2 style={{ fontFamily: "'IBM Plex Serif'", fontSize: 22, fontWeight: 700, color: "#0F1A2E", marginBottom: 6 }}>Deep Dives</h2>
+            <p style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.7, marginBottom: 24 }}>Mechanism-level education. Understand why, not just what.</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {BLOG.map((post, i) => (
                 <div key={i} style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: 12, overflow: "hidden" }}>
                   <div onClick={() => setBlogOpen(blogOpen === i ? null : i)} style={{ padding: "16px 20px", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div>
                       <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 6px", borderRadius: 4, background: post.color + "15", color: post.color, textTransform: "uppercase", letterSpacing: 1, fontFamily: "'IBM Plex Mono'", marginRight: 10 }}>{post.tag}</span>
-                      <span style={{ fontSize: 14, fontWeight: 700, color: "#F1F5F9", fontFamily: "'IBM Plex Serif'" }}>{post.title}</span>
+                      <span style={{ fontSize: 14, fontWeight: 700, color: "#0F1A2E", fontFamily: "'IBM Plex Serif'" }}>{post.title}</span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <span style={{ fontSize: 10, color: "#475569", fontFamily: "'IBM Plex Mono'" }}>{post.read}</span>
-                      <span style={{ color: "#64748B", fontSize: 14, transform: blogOpen === i ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>{"\u25BE"}</span>
+                      <span style={{ color: "#6B7280", fontSize: 14, transform: blogOpen === i ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>{"\u25BE"}</span>
                     </div>
                   </div>
                   {blogOpen === i && (
                     <div style={{ padding: "0 20px 20px", animation: "su 0.3s ease" }}>
                       <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: 16 }}>
                         {post.body.split("\n\n").map((para, pi) => (
-                          <p key={pi} style={{ fontSize: 13, color: "#94A3B8", lineHeight: 1.85, marginBottom: 12 }}>{para}</p>
+                          <p key={pi} style={{ fontSize: 13, color: "#4B5563", lineHeight: 1.85, marginBottom: 12 }}>{para}</p>
                         ))}
                       </div>
                     </div>
