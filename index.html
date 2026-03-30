@@ -3,12 +3,260 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hormone Optimizer | Endocrine Intelligence Lab</title>
-    <meta name="description" content="Comprehensive hormone panel analysis with mechanisms, personalized protocols, and circadian architecture. Built by Aakriti Suri." />
+    <title>MyPanel AI — Decode Your Hormones</title>
+    <meta name="description" content="Upload your blood panel. Get mechanistic insights, personalized protocols, and circadian architecture — all powered by endocrine intelligence." />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: 'DM Sans', sans-serif; background: #FAFCFE; color: #0F1A2E; -webkit-font-smoothing: antialiased; }
+      a { text-decoration: none; color: inherit; }
+
+      /* Utility */
+      .container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+      .btn-primary {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 600;
+        background: linear-gradient(135deg, #1A56DB, #3B82F6); color: #fff;
+        border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+        font-family: 'DM Sans', sans-serif;
+      }
+      .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,86,219,0.3); }
+      .btn-secondary {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 600;
+        background: #fff; color: #1A56DB; border: 1.5px solid #D1D5DB;
+        cursor: pointer; transition: border-color 0.2s; font-family: 'DM Sans', sans-serif;
+      }
+      .btn-secondary:hover { border-color: #1A56DB; }
+
+      /* Nav */
+      nav { padding: 20px 0; border-bottom: 1px solid #E2E8F0; }
+      nav .inner { display: flex; justify-content: space-between; align-items: center; }
+      nav .logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: #0F1A2E; }
+      nav .logo span { color: #1A56DB; }
+      nav .links { display: flex; gap: 28px; align-items: center; }
+      nav .links a { font-size: 14px; font-weight: 500; color: #4B5563; transition: color 0.2s; }
+      nav .links a:hover { color: #1A56DB; }
+
+      /* Hero */
+      .hero { padding: 100px 0 80px; text-align: center; }
+      .hero .eyebrow {
+        display: inline-block; padding: 6px 16px; border-radius: 20px;
+        background: rgba(26,86,219,0.06); color: #1A56DB;
+        font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+      .hero h1 {
+        font-family: 'DM Serif Display', serif; font-size: clamp(36px, 5.5vw, 64px);
+        line-height: 1.1; margin-bottom: 20px; color: #0F1A2E;
+      }
+      .hero h1 em { font-style: normal; color: #1A56DB; }
+      .hero p { font-size: 18px; color: #4B5563; line-height: 1.7; max-width: 600px; margin: 0 auto 36px; }
+      .hero .ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+      /* Trust bar */
+      .trust { padding: 48px 0; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0; text-align: center; }
+      .trust p { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 16px; }
+      .trust .items { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+      .trust .items span { font-size: 14px; font-weight: 500; color: #6B7280; }
+
+      /* Features */
+      .features { padding: 80px 0; }
+      .features .label { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #1A56DB; margin-bottom: 12px; }
+      .features h2 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 42px); margin-bottom: 48px; }
+      .features .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+      .feature-card {
+        background: #fff; border: 1px solid #E2E8F0; border-radius: 14px; padding: 32px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .feature-card:hover { border-color: #1A56DB; box-shadow: 0 4px 20px rgba(26,86,219,0.08); }
+      .feature-card .icon { font-size: 28px; margin-bottom: 16px; }
+      .feature-card h3 { font-family: 'DM Serif Display', serif; font-size: 20px; margin-bottom: 8px; }
+      .feature-card p { font-size: 14px; color: #4B5563; line-height: 1.7; }
+
+      /* How it works */
+      .how { padding: 80px 0; background: #F0F4F8; }
+      .how .label { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #1A56DB; margin-bottom: 12px; text-align: center; }
+      .how h2 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 42px); text-align: center; margin-bottom: 48px; }
+      .how .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+      .step { text-align: center; }
+      .step .num {
+        width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #1A56DB, #3B82F6);
+        color: #fff; font-weight: 700; font-size: 18px; display: inline-flex; align-items: center; justify-content: center;
+        margin-bottom: 16px;
+      }
+      .step h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+      .step p { font-size: 14px; color: #4B5563; line-height: 1.6; }
+
+      /* Science */
+      .science { padding: 80px 0; }
+      .science .label { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #1A56DB; margin-bottom: 12px; }
+      .science h2 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 42px); margin-bottom: 16px; }
+      .science > .container > p { font-size: 16px; color: #4B5563; line-height: 1.7; max-width: 640px; margin-bottom: 36px; }
+      .science .markers { display: flex; gap: 12px; flex-wrap: wrap; }
+      .marker-tag {
+        padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500;
+        background: #fff; border: 1px solid #E2E8F0; color: #374151;
+      }
+
+      /* CTA */
+      .cta-section { padding: 80px 0; text-align: center; background: linear-gradient(180deg, #FAFCFE 0%, #E8EEFB 100%); }
+      .cta-section h2 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 42px); margin-bottom: 12px; }
+      .cta-section p { font-size: 16px; color: #4B5563; margin-bottom: 32px; }
+
+      /* Footer */
+      footer { padding: 32px 0; border-top: 1px solid #E2E8F0; text-align: center; }
+      footer p { font-size: 12px; color: #9CA3AF; line-height: 2; }
+
+      @media (max-width: 640px) {
+        .container { padding: 0 20px; }
+        .hero { padding: 60px 0 48px; }
+        nav .links { gap: 16px; }
+      }
+    </style>
   </head>
-  <body style="margin:0;background:#0F172A">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+  <body>
+
+    <nav>
+      <div class="container inner">
+        <a href="/" class="logo">MyPanel<span>AI</span></a>
+        <div class="links">
+          <a href="#features">Features</a>
+          <a href="#how">How It Works</a>
+          <a href="#science">Science</a>
+          <a href="/analyzer/" class="btn-primary" style="padding:8px 20px;font-size:13px;">Launch Analyzer</a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Endocrine Intelligence</div>
+        <h1>Your blood panel is<br/>a <em>message</em> from<br/>your biology</h1>
+        <p>Most lab reports tell you if you're "normal." We tell you what your hormones are actually doing — the mechanisms, the cascades, the upstream drivers — and exactly how to optimize them.</p>
+        <div class="ctas">
+          <a href="/analyzer/" class="btn-primary">Fix My Hormones &rarr;</a>
+          <a href="#how" class="btn-secondary">See How It Works</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust">
+      <div class="container">
+        <p>What we analyze</p>
+        <div class="items">
+          <span>Cortisol</span>
+          <span>Thyroid (TSH, T3, T4)</span>
+          <span>Testosterone</span>
+          <span>Estradiol</span>
+          <span>Insulin</span>
+          <span>Vitamin D</span>
+          <span>IGF-1</span>
+          <span>+10 more</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="label">Features</div>
+        <h2>Not just numbers.<br/>Mechanisms.</h2>
+        <div class="grid">
+          <div class="feature-card">
+            <div class="icon">&#x1F9EC;</div>
+            <h3>Mechanistic Analysis</h3>
+            <p>Every marker explained at the receptor level — how it binds, what it activates, and why your number matters. No black boxes.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">&#x26A1;</div>
+            <h3>Cascade Detection</h3>
+            <p>Your hormones don't act alone. We map the upstream drivers and downstream effects — cortisol suppressing testosterone, insulin blocking SHBG, and more.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">&#x1F4CB;</div>
+            <h3>Clinical Protocols</h3>
+            <p>Evidence-based supplement, diet, and exercise protocols personalized to your panel. Doses, timing, and the science behind each recommendation.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">&#x1F319;</div>
+            <h3>Circadian Architecture</h3>
+            <p>Every hormone has a time signature. See your 24-hour cortisol curve, testosterone peak window, and the optimal time to test each marker.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">&#x1F3CB;&#xFE0F;</div>
+            <h3>Lifestyle Optimization</h3>
+            <p>Light exposure, sleep temperature, meal timing, and exercise prescriptions — the behavioral inputs that modulate your endocrine system more than most supplements.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">&#x1F4E5;</div>
+            <h3>Downloadable Reports</h3>
+            <p>Generate a comprehensive report of your findings, protocols, and action items. Share it with your doctor or keep it for tracking.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <div class="container">
+        <div class="label">How It Works</div>
+        <h2>Three steps to endocrine clarity</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <h3>Enter Your Panel</h3>
+            <p>Input your blood test results — cortisol, thyroid, testosterone, insulin, and more. We support 17+ markers.</p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <h3>Get Your Analysis</h3>
+            <p>Receive an endocrine score, clinical findings with severity levels, and pathway mapping showing how your hormones interact.</p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <h3>Follow Your Protocol</h3>
+            <p>Get personalized supplement stacks, diet frameworks, exercise prescriptions, and circadian optimization — all with doses and timing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="science" id="science">
+      <div class="container">
+        <div class="label">The Science</div>
+        <h2>Built on peer-reviewed<br/>endocrinology</h2>
+        <p>Our analysis engine maps receptor-level mechanisms, HPA/HPG/HPT axis dynamics, and circadian pulsatile patterns. Protocols are informed by Huberman Lab research, Peter Attia's metabolic framework, and current endocrine literature.</p>
+        <div class="markers">
+          <span class="marker-tag">HPA Axis</span>
+          <span class="marker-tag">HPG Axis</span>
+          <span class="marker-tag">Thyroid Cascade</span>
+          <span class="marker-tag">Insulin Signaling</span>
+          <span class="marker-tag">Circadian Rhythms</span>
+          <span class="marker-tag">Deiodinase Pathway</span>
+          <span class="marker-tag">Aromatase Activity</span>
+          <span class="marker-tag">SHBG Binding</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Your hormones are talking.<br/>Start listening.</h2>
+        <p>Free. No signup. Just science.</p>
+        <a href="/analyzer/" class="btn-primary">Launch Analyzer &rarr;</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>
+          Built by Aakriti Suri &middot; Educational tool &middot; Not medical advice &middot; Consult an endocrinologist
+          <br/>Protocols informed by Huberman Lab, Attia, and peer-reviewed literature
+        </p>
+      </div>
+    </footer>
+
   </body>
 </html>
