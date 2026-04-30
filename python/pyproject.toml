@@ -1,0 +1,53 @@
+[project]
+name = "mypanel"
+version = "0.1.0"
+description = "Empirical hormone reference ranges from NHANES"
+readme = "../README.md"
+requires-python = ">=3.10"
+authors = [{name = "Aakriti Suri"}]
+license = {text = "MIT"}
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "scipy>=1.11",
+    "scikit-learn>=1.3",
+    "matplotlib>=3.7",
+    "seaborn>=0.13",
+    "pyreadstat>=1.2",
+    "jupyter>=1.0",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "hypothesis>=6.92",
+    "ruff>=0.1",
+    "black>=23.0",
+    "mypy>=1.7",
+    "pre-commit>=3.5",
+    "nbstripout>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mypanel"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=src/mypanel --cov-report=term-missing"

@@ -1,5 +1,47 @@
-node_modules
-dist
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Data — never commit raw NHANES files
+data/raw/
+data/processed/
+*.xpt
+*.XPT
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
 .DS_Store
-*.local
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+
+# Vite
+.vite/
+
+# Secrets
+.env
+.env.local
+*.pem
+
+# Vercel
 .vercel
