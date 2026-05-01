@@ -38,6 +38,9 @@ frontend/.next/
 # Vite
 .vite/
 
+# Claude Code
+CLAUDE.md
+
 # Secrets
 .env
 .env.local
