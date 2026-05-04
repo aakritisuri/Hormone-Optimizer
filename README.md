@@ -72,8 +72,8 @@ The roadmap below is the plan to get from current state to v1.0.
 
 | Phase | Scope | Status |
 |---|---|---|
-| 1. Foundation | Monorepo structure, Python tooling, CI, license, citation | ✅ Complete |
-| 2. NHANES pipeline | Download, healthy-subsample definition, empirical estimator with bootstrap CIs, validation against published ranges | 🚧 In progress |
+| 1. Foundation | Monorepo structure, Python tooling, CI, license, citation | Complete |
+| 2. NHANES pipeline | Download, healthy-subsample definition, empirical estimator with bootstrap CIs, validation against published ranges | In-progress |
 | 3. Integration & v1.0 | Frontend consumes artifact, model card, README essay, tag v1.0.0 | Planned |
 | 4. Extensions | Free testosterone modeling, longitudinal tracking, non-Western population study | Future |
 
