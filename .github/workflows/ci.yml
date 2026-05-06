@@ -31,8 +31,8 @@ jobs:
       - name: Type check
         run: |
           source .venv/bin/activate
-          mypy src || true  # don't fail on mypy yet, src is empty
+          mypy src
       - name: Test
         run: |
           source .venv/bin/activate
-          pytest || true  # don't fail on no-tests yet
+          pytest
